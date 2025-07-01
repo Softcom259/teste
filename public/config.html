@@ -1,0 +1,60 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Configurar IP</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      background-color: #0e1a2b;
+      color: white;
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+    h1 {
+      margin-bottom: 20px;
+    }
+    input {
+      padding: 12px;
+      font-size: 16px;
+      border-radius: 8px;
+      border: none;
+      width: 250px;
+      margin-bottom: 20px;
+    }
+    button {
+      padding: 12px 24px;
+      font-size: 16px;
+      border: none;
+      border-radius: 8px;
+      background-color: #1b4de4;
+      color: white;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #123ab6;
+    }
+  </style>
+</head>
+<body>
+  <h1>Configurar IP da API</h1>
+  <input type="text" id="ip" placeholder="Ex: 192.168.0.105" />
+  <button onclick="salvarIP()">Salvar</button>
+
+  <script>
+    function salvarIP() {
+      const ip = document.getElementById("ip").value;
+      if (ip) {
+        localStorage.setItem("api_ip", ip);
+        window.location.href = "/leitor.html";
+      }
+    }
+  </script>
+</body>
+</html>
