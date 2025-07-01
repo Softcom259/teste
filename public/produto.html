@@ -1,0 +1,47 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Produto</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Informações do Produto</h1>
+    <div id="produto" style="display: none;">
+      <img id="imagem" src="">
+      <h2 id="nome"></h2>
+      <h3 id="preco"></h3>
+    </div>
+    <p id="erro" style="color: red;"></p>
+    <button onclick="voltar()">Efetuar nova leitura</button>
+  </div>
+  <script>
+    const ip = localStorage.getItem("api_ip");
+    if (!ip) window.location.href = "/config.html";
+
+    const url = new URL(window.location.href);
+    const codigo = url.searchParams.get("codigo");
+    fetch(`http://${ip}:8000/consulta/${codigo}`)
+      .then(res => {
+        if (!res.ok) throw new Error('Produto não encontrado');
+        return res.json();
+      })
+      .then(data => {
+        document.getElementById("produto").style.display = "block";
+        document.getElementById("nome").textContent = data.nome;
+        document.getElementById("preco").textContent = 'R$ ' + parseFloat(data.preco).toFixed(2);
+        document.getElementById("imagem").src = data.imagem;
+      })
+      .catch(() => {
+        document.getElementById("erro").textContent = 'Produto não encontrado.';
+      });
+
+    function voltar() {
+      window.location.href = "/leitor.html";
+    }
+  </script>
+</body>
+</html>
