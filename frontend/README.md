@@ -1,0 +1,1 @@
+# Sistema de Consulta de Preços (Frontend Vercel)
