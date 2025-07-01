@@ -1,0 +1,28 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Ler Código</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Leitura de Produto</h1>
+    <video id="preview"></video>
+    <p id="status">Aguardando leitura...</p>
+  </div>
+  <script src="https://unpkg.com/@zxing/library@latest"></script>
+  <script>
+    const status = document.getElementById('status');
+    const codeReader = new ZXing.BrowserBarcodeReader();
+    codeReader.decodeFromVideoDevice(null, 'preview', (result, err) => {
+      if (result) {
+        const codigo = result.text;
+        status.innerText = 'Código lido: ' + codigo;
+        window.location.href = `/produto.html?codigo=${codigo}`;
+      }
+    });
+  </script>
+</body>
+</html>
